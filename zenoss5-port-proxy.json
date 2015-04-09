@@ -13,7 +13,7 @@
        "Tags": [
          "daemon"
        ],
-       "ImageID": "jangaraj/zenoss5-port-proxy",
+       "ImageID": "jangaraj/zenoss5-port-proxy:latest",
        "Instances": {
          "Min": 1,
          "Max": 1,
