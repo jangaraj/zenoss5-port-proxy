@@ -28,7 +28,7 @@
          "/etc/httpd/conf.d/zenoss5portproxy.conf": {
            "Filename": "/etc/httpd/conf.d/zenoss5portproxy.conf",
            "Owner": "root:root",
-           "Permissions": "644",
+           "Permissions": "0644",
            "Content": "##############################################################################\r\n#\r\n# Copyright (C) Jan Garaj www.jangaraj.com 2015, all rights reserved.\r\n#\r\n##############################################################################\r\nListen           8080\r\n<VirtualHost \"0.0.0.0:8080\">\r\nRequestHeader set Host \"zenoss5.local\"\r\nProxyPreserveHost On\r\nProxyPass          /   https://127.0.0.1:443/\r\n</VirtualHost>"
          }
        },
