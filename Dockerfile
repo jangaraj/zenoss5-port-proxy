@@ -7,4 +7,4 @@ COPY index.html /var/www/html/
 EXPOSE 80 8080
 
 ENTRYPOINT ["/usr/sbin/httpd"] 
-CMD ["-D", "FOREGROUND"]
+CMD ["-D", "FOREGROUND", " -k", " start"]
