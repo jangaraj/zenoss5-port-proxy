@@ -3,7 +3,7 @@
 FROM centos:centos6
 MAINTAINER "Jan Garaj" <jan.garaj@gmail.com> (www.jangaraj.com)
 
-RUN yum -y install httpd
+RUN yum -y install httpd mod_ssl
 #COPY zenoss5portproxy.conf /etc/httpd/conf.d/
 COPY index.html /var/www/html/
 EXPOSE 8080
