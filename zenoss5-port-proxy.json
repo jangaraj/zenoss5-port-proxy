@@ -29,7 +29,7 @@
            "Filename": "/etc/httpd/conf.d/zenoss5portproxy.conf",
            "Owner": "root:root",
            "Permissions": "0644",
-           "Content": "##############################################################################\r\n#\r\n# Copyright (C) Jan Garaj www.jangaraj.com 2015, all rights reserved.\r\n#\r\n##############################################################################\r\nListen           8080\r\n<VirtualHost \"0.0.0.0:8080\">\r\nRequestHeader set Host \"zenoss5.local\"\r\nProxyPreserveHost On\r\nProxyPass          /   https://127.0.0.1:443/\r\n</VirtualHost>"
+           "Content": "##############################################################################\r\n#\r\n# Copyright (C) Jan Garaj www.jangaraj.com 2015, all rights reserved.\r\n#\r\n##############################################################################\r\nServerName localhost\r\n\r\nListen 8080\r\n<VirtualHost "0.0.0.0:8080">\r\n  RequestHeader set Host "zenoss5.local"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n"
          }
        },
        "Context": {
@@ -52,14 +52,9 @@
          }
        ],
        "Tasks": null,
-       "LogFilters": {
-       },
-       "Volumes": [
-         {
-         }
-       ],
-       "LogConfigs": [
-       ],
+       "LogFilters": null,
+       "Volumes": null,
+       "LogConfigs": null,
        "Snapshot": {
          "Pause": "",
          "Resume": ""
@@ -69,20 +64,10 @@
        "Runs": null,
        "Actions": null,
        "HealthChecks": {
-         "answering": {
+         "port8080": {
            "Script": "curl -f -s http://localhost:8080/ \u003e /dev/null",
            "Interval": 5,
-           "Timeout": 0
-         },
-         "ready": {
-           "Script": "curl -f -s http://localhost:8080/ \u003e /dev/null",
-           "Interval": 30,
-           "Timeout": 0
-         },
-         "running": {
-           "Script": "curl -f -s http://localhost:8080/ \u003e /dev/null",
-           "Interval": 5,
-           "Timeout": 0
+           "Timeout": 5
          }
        },
        "Prereqs": null,

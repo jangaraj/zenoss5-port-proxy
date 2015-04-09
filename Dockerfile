@@ -1,3 +1,5 @@
+# Build Docker image for Zenoss 5 Port Proxy
+
 FROM centos:centos6
 MAINTAINER "Jan Garaj" <jan.garaj@gmail.com> (www.jangaraj.com)
 
