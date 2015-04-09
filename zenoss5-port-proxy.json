@@ -1,0 +1,114 @@
+{
+   "ID": "",
+   "Name": "Zenoss5.PortProxy",
+   "Version": "1.0",
+   "Description": "Zenoss 5 Port Proxy (www.jangaraj.com) - provides port to Zenoss 5 service mapping. You won't need a domain and you still be able to use all Zenoss 5 services. Default mapping 8080->zenoss5, 55672->rabbitmq,  4242->opentsdb, 60010->hbase. It can be changed in the config.",
+   "Services": [
+     {
+       "Name": "Zenoss5.PortProxy",
+       "Title": "z5portproxy",
+       "Version": "1.0",
+       "Command": "/usr/sbin/httpd -D FOREGROUND",
+       "Description": "Zenoss 5 Port Proxy (www.jangaraj.com)",
+       "Tags": [
+         "daemon"
+       ],
+       "ImageID": "jangaraj/zenoss5-port-proxy",
+       "Instances": {
+         "Min": 1,
+         "Max": 1,
+         "Default": 1
+       },
+       "ChangeOptions": null,
+       "Launch": "auto",
+       "HostPolicy": "",
+       "Hostname": "",
+       "Privileged": false,
+       "ConfigFiles": {
+         "/etc/httpd/conf.d/zenoss5portproxy.conf": {
+           "Filename": "/etc/httpd/conf.d/zenoss5portproxy.conf",
+           "Owner": "root:root",
+           "Permissions": "644",
+           "Content": "##############################################################################\r\n#\r\n# Copyright (C) Jan Garaj www.jangaraj.com 2015, all rights reserved.\r\n#\r\n##############################################################################\r\nListen           8080\r\n<VirtualHost \"0.0.0.0:8080\">\r\nRequestHeader set Host \"zenoss5.local\"\r\nProxyPreserveHost On\r\nProxyPass          /   https://127.0.0.1:443/\r\n</VirtualHost>"
+         }
+       },
+       "Context": {
+       },
+       "Endpoints": [
+         {
+           "Name": "zenoss5port8080",
+           "Purpose": "export",
+           "Protocol": "tcp",
+           "PortNumber": 8080,
+           "PortTemplate": "",
+           "VirtualAddress": "",
+           "Application": "zenoss5port8080",
+           "ApplicationTemplate": "",
+           "AddressConfig": {
+             "Port": 8080,
+             "Protocol": "tcp"
+           },
+           "VHosts": null
+         }
+       ],
+       "Tasks": null,
+       "LogFilters": {
+       },
+       "Volumes": [
+         {
+         }
+       ],
+       "LogConfigs": [
+       ],
+       "Snapshot": {
+         "Pause": "",
+         "Resume": ""
+       },
+       "RAMCommitment": "64M",
+       "CPUCommitment": 1,
+       "Runs": null,
+       "Actions": null,
+       "HealthChecks": {
+         "answering": {
+           "Script": "curl -f -s http://localhost:8080/ \u003e /dev/null",
+           "Interval": 5,
+           "Timeout": 0
+         },
+         "ready": {
+           "Script": "curl -f -s http://localhost:8080/ \u003e /dev/null",
+           "Interval": 30,
+           "Timeout": 0
+         },
+         "running": {
+           "Script": "curl -f -s http://localhost:8080/ \u003e /dev/null",
+           "Interval": 5,
+           "Timeout": 0
+         }
+       },
+       "Prereqs": null,
+       "MonitoringProfile": {
+         "MetricConfigs": null,
+         "GraphConfigs": null,
+         "ThresholdConfigs": null
+       },
+       "MemoryLimit": 0,
+       "CPUShares": 0,
+       "PIDFile": ""
+     }
+   ],
+   "ConfigFiles": null,
+   "ServicedVersion": {
+     "Version": "0.10.0",
+     "Date": "Mon Nov 24 17:40:37 UTC 2014",
+     "Gitbranch": "master",
+     "Gitcommit": "e80a617",
+     "Giturl": "",
+     "Buildtag": "0"
+   },
+   "TemplateVersion": {
+     "branch": "unknown",
+     "commit": "unknown",
+     "repo": "unknown",
+     "tag": "unknown"
+   }
+}
