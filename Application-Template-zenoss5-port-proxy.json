@@ -29,7 +29,7 @@
            "Filename": "/etc/httpd/conf.d/zenoss5portproxy.conf",
            "Owner": "root:root",
            "Permissions": "0644",
-           "Content": "##############################################################################\r\n#\r\n# Copyright (C) Jan Garaj www.jangaraj.com 2015, all rights reserved.\r\n#\r\n##############################################################################\r\nLoadModule ssl_module modules/mod_ssl.so\r\n\r\nServerName localhost\r\nSSLSessionCache         shmcb:/run/httpd/sslcache(512000)\r\nSSLSessionCacheTimeout  300\r\nSSLRandomSeed startup file:/dev/urandom  256\r\nSSLRandomSeed connect builtin\r\nSSLCryptoDevice builtin\r\nSSLEngine on\r\nSSLProxyEngine on\r\nSSLProtocol all -SSLv2\r\nSSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5\r\nSSLCertificateFile /etc/pki/tls/certs/localhost.crt\r\nSSLCertificateKeyFile /etc/pki/tls/private/localhost.key\r\n\r\nListen 8080\r\n<VirtualHost \"0.0.0.0:8080\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  RequestHeader set Host \"zenoss5.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\nListen 55672\r\n<VirtualHost \"0.0.0.0:55672\">\r\n  SSLEngine on\r\n  SSLProxyEngine\r\n  RequestHeader set Host \"rabbitmq.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n\r\nListen 4242\r\n<VirtualHost \"0.0.0.0:4242\">\r\n  SSLEngine on\r\n  SSLProxyEngine\r\n  RequestHeader set Host \"opentsdb.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n\r\nListen 60010\r\n<VirtualHost \"0.0.0.0:60010\">\r\n  SSLEngine on\r\n  SSLProxyEngine\r\n  RequestHeader set Host \"hbase.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n"
+           "Content": "##############################################################################\r\n#\r\n# Copyright (C) Jan Garaj www.jangaraj.com 2015, all rights reserved.\r\n#\r\n##############################################################################\r\nLoadModule ssl_module modules/mod_ssl.so\r\n\r\nServerName localhost\r\nSSLSessionCache         shmcb:/run/httpd/sslcache(512000)\r\nSSLSessionCacheTimeout  300\r\nSSLRandomSeed startup file:/dev/urandom  256\r\nSSLRandomSeed connect builtin\r\nSSLCryptoDevice builtin\r\nSSLEngine on\r\nSSLProxyEngine on\r\nSSLProtocol all -SSLv2\r\nSSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5\r\nSSLCertificateFile /etc/pki/tls/certs/localhost.crt\r\nSSLCertificateKeyFile /etc/pki/tls/private/localhost.key\r\n\r\nListen 8080\r\n<VirtualHost \"0.0.0.0:8080\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  RequestHeader set Host \"zenoss5.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\nListen 55672\r\n<VirtualHost \"0.0.0.0:55672\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  RequestHeader set Host \"rabbitmq.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n\r\nListen 4242\r\n<VirtualHost \"0.0.0.0:4242\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  RequestHeader set Host \"opentsdb.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n\r\nListen 60010\r\n<VirtualHost \"0.0.0.0:60010\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  RequestHeader set Host \"hbase.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n"
          }
        },
        "Context": {
@@ -116,22 +116,22 @@
        "Runs": null,
        "Actions": null,
        "HealthChecks": {
-         "https 8080": {
+         "Zenoss 5 - https 8080": {
            "Script": "curl -k -f -s https://localhost:8080/ \u003e /dev/null",
            "Interval": 5,
            "Timeout": 4
          },
-         "https 55672": {
+         "RabbitMQ - https 55672": {
            "Script": "curl -k -f -s https://localhost:55672/ \u003e /dev/null",
            "Interval": 5,
            "Timeout": 4
          },
-         "http 4242": {
+         "OpenTSDB - https 4242": {
            "Script": "curl -k -f -s https://localhost:4242/ \u003e /dev/null",
            "Interval": 5,
            "Timeout": 4
          },
-         "https 60010": {
+         "HBase - https 60010": {
            "Script": "curl -k -f -s https://localhost:60010/ \u003e /dev/null",
            "Interval": 5,
            "Timeout": 4
