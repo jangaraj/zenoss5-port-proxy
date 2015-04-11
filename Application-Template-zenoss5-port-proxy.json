@@ -2,7 +2,7 @@
    "ID": "",
    "Name": "Zenoss5.PortProxy",
    "Version": "1.0",
-   "Description": "Zenoss 5 Port Proxy (www.jangaraj.com) - provides port to Zenoss 5 service mapping. You won't need a domain and you still be able to use all Zenoss 5 services. Default mapping 8080->zenoss5, 55672->rabbitmq,  4242->opentsdb, 60010->hbase. It can be changed in the config.",
+   "Description": "Zenoss 5 Port Proxy (www.jangaraj.com) - provides port to Zenoss 5 service mapping. You won't need a domain and you still be able to use all Zenoss 5 services. Default mapping 8081->zenoss5, 55672->rabbitmq.",
    "Services": [
      {
        "Name": "Zenoss5.PortProxy",
@@ -29,23 +29,23 @@
            "Filename": "/etc/httpd/conf.d/zenoss5portproxy.conf",
            "Owner": "root:root",
            "Permissions": "0644",
-           "Content": "##############################################################################\r\n#\r\n# Copyright (C) Jan Garaj www.jangaraj.com 2015, all rights reserved.\r\n#\r\n##############################################################################\r\n\r\nLoadModule ssl_module modules/mod_ssl.so\r\n\r\nServerName localhost\r\nSSLSessionCache         shmcb:/run/httpd/sslcache(512000)\r\nSSLSessionCacheTimeout  300\r\nSSLRandomSeed startup file:/dev/urandom  256\r\nSSLRandomSeed connect builtin\r\nSSLCryptoDevice builtin\r\nSSLEngine on\r\nSSLProxyEngine on\r\nSSLProtocol all -SSLv2\r\nSSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5\r\nSSLCertificateFile /etc/pki/tls/certs/localhost.crt\r\nSSLCertificateKeyFile /etc/pki/tls/private/localhost.key\r\n\r\nListen 8080\r\n<VirtualHost \"0.0.0.0:8080\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  ProxyPreserveHost on\r\n  RequestHeader set Host \"zenoss5.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n\r\nListen 55672\r\n<VirtualHost \"0.0.0.0:55672\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  ProxyPreserveHost on\r\n  RequestHeader set Host \"rabbitmq.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n\r\nListen 4242\r\n<VirtualHost \"0.0.0.0:4242\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  ProxyPreserveHost on\r\n  RequestHeader set Host \"opentsdb.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n\r\nListen 60010\r\n<VirtualHost \"0.0.0.0:60010\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  ProxyPreserveHost on\r\n  RequestHeader set Host \"hbase.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n"
+           "Content": "##############################################################################\r\n#\r\n# Copyright (C) Jan Garaj www.jangaraj.com 2015, all rights reserved.\r\n#\r\n##############################################################################\r\n\r\nLoadModule ssl_module modules/mod_ssl.so\r\n\r\nServerName localhost\r\nSSLSessionCache         shmcb:/run/httpd/sslcache(512000)\r\nSSLSessionCacheTimeout  300\r\nSSLRandomSeed startup file:/dev/urandom  256\r\nSSLRandomSeed connect builtin\r\nSSLCryptoDevice builtin\r\nSSLEngine on\r\nSSLProxyEngine on\r\nSSLProtocol all -SSLv2\r\nSSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5\r\nSSLCertificateFile /etc/pki/tls/certs/localhost.crt\r\nSSLCertificateKeyFile /etc/pki/tls/private/localhost.key\r\n\r\nListen 8081\r\n<VirtualHost \"0.0.0.0:8081\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  ProxyPreserveHost on\r\n  RequestHeader set Host \"zenoss5.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n\r\nListen 55672\r\n<VirtualHost \"0.0.0.0:55672\">\r\n  SSLEngine on\r\n  SSLProxyEngine on\r\n  ProxyPreserveHost on\r\n  RequestHeader set Host \"rabbitmq.local\"\r\n  ProxyPass / https://127.0.0.1:443/\r\n</VirtualHost>\r\n"
          }
        },
        "Context": {
        },
        "Endpoints": [
          {
-           "Name": "zenoss5port8080",
+           "Name": "zenoss5port8081",
            "Purpose": "export",
            "Protocol": "tcp",
-           "PortNumber": 8080,
+           "PortNumber": 8081,
            "PortTemplate": "",
            "VirtualAddress": "localhost:443",
-           "Application": "zenoss5port8080",
+           "Application": "zenoss5port8081",
            "ApplicationTemplate": "",
            "AddressConfig": {
-             "Port": 8080,
+             "Port": 8081,
              "Protocol": "tcp"
            },
            "VHosts": null
@@ -64,37 +64,7 @@
              "Protocol": "tcp"
            },
            "VHosts": null
-         },
-         {
-           "Name": "opentsdbport4242",
-           "Purpose": "export",
-           "Protocol": "tcp",
-           "PortNumber": 4242,
-           "PortTemplate": "",
-           "VirtualAddress": "localhost:443",
-           "Application": "opentsdbport4242",
-           "ApplicationTemplate": "",
-           "AddressConfig": {
-             "Port": 4242,
-             "Protocol": "tcp"
-           },
-           "VHosts": null
-         },
-         {
-           "Name": "hbaseport60010",
-           "Purpose": "export",
-           "Protocol": "tcp",
-           "PortNumber": 60010,
-           "PortTemplate": "",
-           "VirtualAddress": "localhost:443",
-           "Application": "hbaseport60010",
-           "ApplicationTemplate": "",
-           "AddressConfig": {
-             "Port": 60010,
-             "Protocol": "tcp"
-           },
-           "VHosts": null
-         }                  
+         }                 
        ],
        "Tasks": null,
        "LogFilters": null,
@@ -116,8 +86,8 @@
        "Runs": null,
        "Actions": null,
        "HealthChecks": {
-         "Zenoss 5 - https 8080": {
-           "Script": "curl -k -f -s https://localhost:8080/ \u003e /dev/null",
+         "Zenoss 5 - https 8081": {
+           "Script": "curl -k -f -s https://localhost:8081/ \u003e /dev/null",
            "Interval": 5,
            "Timeout": 4
          },
@@ -125,17 +95,7 @@
            "Script": "curl -k -f -s https://localhost:55672/ \u003e /dev/null",
            "Interval": 5,
            "Timeout": 4
-         },
-         "OpenTSDB - https 4242": {
-           "Script": "curl -k -f -s https://localhost:4242/ \u003e /dev/null",
-           "Interval": 5,
-           "Timeout": 4
-         },
-         "HBase - https 60010": {
-           "Script": "curl -k -f -s https://localhost:60010/ \u003e /dev/null",
-           "Interval": 5,
-           "Timeout": 4
-         }                                    
+         }                                   
        },
        "Prereqs": null,
        "MonitoringProfile": {
